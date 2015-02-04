@@ -2,8 +2,9 @@
 
 if (AudioContext.prototype.createOscillator){
 	var origAudioContext = AudioContext;
-	var newAudioContext = function (){
-		var newAudioContext = {};
+	function newAudioContext (){
+		console.log("Running Hijacked Context");
+		var newAudioContextInstance = {};
 		var origACInstance = new origAudioContext();
 		var masterGain = origACInstance.createGain();
 		masterGain.connect(origACInstance.destination);
@@ -12,11 +13,11 @@ if (AudioContext.prototype.createOscillator){
 			(function(){
 				var thisProp = property;
 				if (typeof(origACInstance[property]) === 'function'){
-					newAudioContext[thisProp] = function (arguments) {
+					newAudioContextInstance[thisProp] = function (arguments) {
 						return origACInstance[thisProp].apply(origACInstance, arguments);
 					}
 				}else if(property !== "destination"){
-					Object.defineProperty(newAudioContext, property, {
+					Object.defineProperty(newAudioContextInstance, property, {
 						get : function (){
 							return origACInstance[thisProp]
 						}
@@ -25,12 +26,13 @@ if (AudioContext.prototype.createOscillator){
 			})();
 		}
 
-		newAudioContext.destination = masterGain;
-		newAudioContext.gain = masterGain.gain;
+		newAudioContextInstance.destination = masterGain;
+		newAudioContextInstance.gain = masterGain.gain;
 
-		return newAudioContext;
+		return newAudioContextInstance;
 	}
 
-	exportFunction(newAudioContext, unsafeWindow, {defineAs: "randomFunction"});
+	console.log("Hijacking...");
+	unsafeWindow.AudioContext = cloneInto(unsafeWindow,newAudioContext);
 	console.log("Hijacked");
 }
