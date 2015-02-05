@@ -6,6 +6,9 @@ s.onload = function() {
     this.parentNode.removeChild(this);
     self.port.on("mastervolume", function(payload){
     	console.log("content:",payload);
+    	var ev = new Event("mastervolume");
+    	ev.gainValue = payload;
+    	document.dispatchEvent(ev);
     })
 };
 (document.head||document.documentElement).appendChild(s);
