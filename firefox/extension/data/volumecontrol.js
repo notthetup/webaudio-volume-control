@@ -1,8 +1,9 @@
 ///var a = new AudioContext(); osc = a.createOscillator(); osc.connect(a.destination); osc.start();
 
-if (AudioContext.prototype.createOscillator){
-	var origAudioContext = AudioContext;
-	function newAudioContext (){
+if (typeof origAudioContext == 'undefined'){
+	console.log("Hijacking...");
+	window.origAudioContext = AudioContext;
+	window.AudioContext = function (){
 		console.log("Running Hijacked Context");
 		var newAudioContextInstance = {};
 		var origACInstance = new origAudioContext();
@@ -31,8 +32,5 @@ if (AudioContext.prototype.createOscillator){
 
 		return newAudioContextInstance;
 	}
-
-	console.log("Hijacking...");
-	unsafeWindow.AudioContext = cloneInto(unsafeWindow,newAudioContext);
 	console.log("Hijacked");
 }

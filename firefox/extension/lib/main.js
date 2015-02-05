@@ -18,11 +18,16 @@ var button = buttons.ActionButton({
 
 function handleClick(state) {
 
+  console.log("Button Click");
+
 	pageMod.PageMod({
 	    include: "*",
       attachTo: ["existing", "top"],
 	    contentScriptWhen: "start",
-	    contentScriptFile: self.data.url("volumecontrol.js")
+	    contentScriptFile: self.data.url("injector.js"),
+      contentScriptOptions: {
+        scripturl: self.data.url("volumecontrol.js")
+      }
 	  });
 }
 
