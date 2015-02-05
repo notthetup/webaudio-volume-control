@@ -1,8 +1,11 @@
-var buttons = require('sdk/ui/button/action');
+var buttons = require('sdk/ui/button/toggle');
+var panels = require("sdk/panel");
 // Import the page-mod API
 var pageMod = require("sdk/page-mod");
 // Import the self API
 var self = require("sdk/self");
+
+var pageWorker;
 
 pageMod.PageMod({
   include: "*",
@@ -10,11 +13,14 @@ pageMod.PageMod({
   contentScriptWhen: "start",
   contentScriptFile: self.data.url("injector.js"),
   contentScriptOptions: {
-    scripturl: self.data.url("volumecontrol.js")
+    scripturl: self.data.url("mastervolume.js")
+  },
+  onAttach: function(worker) {
+    pageWorker=worker;
   }
 });
 
-var button = buttons.ActionButton({
+var button = buttons.ToggleButton({
   id: "webaudio-volume-control",
   label: "WebAudio Volume Control",
   icon: {
@@ -25,10 +31,11 @@ var button = buttons.ActionButton({
   onClick: handleChange
 });
 
-
-
 var panel = panels.Panel({
-  contentURL: self.data.url("volumecontrol.js"),
+  width: 25,
+  height: 180,
+  contentURL: self.data.url("volumecontrol.html"),
+  contentScriptFile: self.data.url("volumecontrol.js"),
   onHide: handleHide
 });
 
@@ -45,3 +52,8 @@ function handleHide() {
   button.state('window', {checked: false});
 }
 
+panel.port.on("mastervolume", function(payload){
+  if(pageWorker){
+    pageWorker.port.emit("mastervolume", payload);
+  }
+})

@@ -4,5 +4,9 @@ var s = document.createElement('script');
 s.src = self.options.scripturl
 s.onload = function() {
     this.parentNode.removeChild(this);
+    self.port.on("mastervolume", function(payload){
+    	console.log("content:",payload);
+    })
 };
 (document.head||document.documentElement).appendChild(s);
+
