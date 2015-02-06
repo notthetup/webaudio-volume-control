@@ -1,33 +1,7 @@
-///var a = new AudioContext(); osc = a.createOscillator(); osc.connect(a.destination); osc.start();
-
-(function (){
-	var origAudioContext = AudioContext;
-	window.AudioContext = function (){
-		var newAudioContext = {};
-		var origACInstance = new origAudioContext();
-		var masterGain = origACInstance.createGain();
-		masterGain.connect(origACInstance.destination);
-
-		for (var property in origACInstance) {
-			(function(){
-				var thisProp = property;
-				if (typeof(origACInstance[property]) === 'function'){
-					newAudioContext[thisProp] = function (arguments) {
-						return origACInstance[thisProp].apply(origACInstance, arguments);
-					}
-				}else if(property !== "destination"){
-					Object.defineProperty(newAudioContext, property, {
-						get : function (){
-							return origACInstance[thisProp]
-						}
-					});
-				}
-			})();
-		}
-
-		newAudioContext.destination = masterGain;
-		newAudioContext.gain = masterGain.gain;
-
-		return newAudioContext;
-	}
-})();
+var inputslider = document.getElementById('inputSlider');
+var sliderlabel = document.getElementById('sliderLabel');
+inputslider.addEventListener('input', function(){
+	//console.log("input...");
+	sliderlabel.innerHTML = parseInt(inputslider.value);
+	self.port.emit("mastervolume", parseFloat(inputslider.value)/100.0);
+})
