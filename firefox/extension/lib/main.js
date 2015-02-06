@@ -11,7 +11,7 @@ const pageWorkers = [];
 
 pageMod.PageMod({
   include: "*",
-  attachTo: ["top"],
+  attachTo: ["top", "frame"],
   contentScriptFile: self.data.url("injector.js"),
   contentScriptWhen: "start",
   contentScriptOptions: {

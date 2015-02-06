@@ -10,7 +10,7 @@ function sendCustomEvent(type, data, payload) {
 }
 
 var s = document.createElement('script');
-// TODO: add "script.js" to web_accessible_resources in manifest.json
+s.src = self.options.scripturl;
 s.onload = function() {
     this.parentNode.removeChild(this);
     self.port.on("mastervolume", function(payload){
@@ -18,6 +18,6 @@ s.onload = function() {
     })
 };
 
-s.src = self.options.scripturl;
+
 (document.head||document.documentElement).appendChild(s);
 
