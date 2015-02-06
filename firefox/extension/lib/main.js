@@ -6,8 +6,28 @@ var tabs = require("sdk/tabs");
 // Import the self API
 var self = require("sdk/self");
 
-const { add, remove } = require("sdk/util/array");
-const pageWorkers = [];
+var workers = [];
+
+function detachWorker(worker, workerArray) {
+  var index = workerArray.indexOf(worker);
+  if(index != -1) {
+    workerArray.splice(index, 1);
+  }
+}
+
+// tabs.on('load', function(tab){
+//     console.log("load", tab.url);
+//     var worker = tab.attach({
+//       contentScriptFile: self.data.url("injector.js"),
+//       contentScriptOptions: {
+//         scripturl: self.data.url("mastervolume.js")
+//       },
+//     });
+//     workers.push(worker);
+//     worker.on('detach', function () {
+//      detachWorker(this, workers);
+//     });
+// });
 
 pageMod.PageMod({
   include: "*",
@@ -18,14 +38,13 @@ pageMod.PageMod({
     scripturl: self.data.url("mastervolume.js")
   },
   onAttach: function(worker) {
-    add(pageWorkers, worker);
-    //console.log('attached injector on ', worker.tab.url, " : ", pageWorkers.length);
-    worker.on('detach', function() {
-      remove(pageWorkers, worker);
-      //console.log('detached worker : ', pageWorkers.length);
-    })
-  }
+     workers.push(worker);
+     worker.on('detach', function () {
+       detachWorker(this, workers);
+     });
+   }
 });
+
 
 var button = buttons.ToggleButton({
   id: "webaudio-volume-control",
@@ -60,10 +79,10 @@ function handleHide() {
 }
 
 panel.port.on("mastervolume", function(payload){
-  //console.log("received mastervolume", payload, " sending to ", pageWorkers.length);
-  pageWorkers.forEach(function(thisWorker, index){
+  console.log("received mastervolume", payload, " sending to ", workers.length);
+  workers.forEach(function(thisWorker, index){
     if (thisWorker.tab.id === tabs.activeTab.id){
-      //console.log("sending to",thisWorker.tab.url)
+      console.log("sending to",thisWorker.tab.url)
       thisWorker.port.emit("mastervolume", payload);
     }
   });
