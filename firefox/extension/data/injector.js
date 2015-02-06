@@ -1,4 +1,4 @@
-console.log("injecting....")
+// console.log("injecting....")
 
 function sendCustomEvent(type, data, payload) {
   var greeting = {};
@@ -19,6 +19,5 @@ s.onload = function() {
 };
 
 s.src = self.options.scripturl;
-
 (document.head||document.documentElement).appendChild(s);
 

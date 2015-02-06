@@ -1,22 +1,29 @@
 var buttons = require('sdk/ui/button/toggle');
 var panels = require("sdk/panel");
-// Import the page-mod API
+// Import the tabs API
 var pageMod = require("sdk/page-mod");
+var tabs = require("sdk/tabs");
 // Import the self API
 var self = require("sdk/self");
 
-var pageWorker;
+const { add, remove } = require("sdk/util/array");
+const pageWorkers = [];
 
 pageMod.PageMod({
   include: "*",
-  attachTo: ["existing", "frame"],
-  contentScriptWhen: "start",
+  attachTo: ["top"],
   contentScriptFile: self.data.url("injector.js"),
+  contentScriptWhen: "start",
   contentScriptOptions: {
     scripturl: self.data.url("mastervolume.js")
   },
   onAttach: function(worker) {
-    pageWorker=worker;
+    add(pageWorkers, worker);
+    //console.log('attached injector on ', worker.tab.url, " : ", pageWorkers.length);
+    worker.on('detach', function() {
+      remove(pageWorkers, worker);
+      //console.log('detached worker : ', pageWorkers.length);
+    })
   }
 });
 
@@ -40,7 +47,7 @@ var panel = panels.Panel({
 });
 
 function handleChange(state) {
-  console.log("Button Click");
+  //console.log("Button Click");
   if (state.checked) {
     panel.show({
       position: button
@@ -53,7 +60,11 @@ function handleHide() {
 }
 
 panel.port.on("mastervolume", function(payload){
-  if(pageWorker){
-    pageWorker.port.emit("mastervolume", payload);
-  }
-})
+  //console.log("received mastervolume", payload, " sending to ", pageWorkers.length);
+  pageWorkers.forEach(function(thisWorker, index){
+    if (thisWorker.tab.id === tabs.activeTab.id){
+      //console.log("sending to",thisWorker.tab.url)
+      thisWorker.port.emit("mastervolume", payload);
+    }
+  });
+});

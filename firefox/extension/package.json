@@ -1,9 +1,9 @@
 {
-  "name": "extension",
-  "title": "extension",
+  "name": "webaudio-volume-control",
+  "title": "WebAudio Volume Control",
   "id": "jid1-f1aXLTxqlB8yfA",
-  "description": "a basic add-on",
-  "author": "",
+  "description": "A basic add-on to control the volume of all audio coming from WebAudio",
+  "author": "Chinmay Pendharkar <notthetup@gmail.com>",
   "license": "MPL 2.0",
   "version": "0.1"
 }

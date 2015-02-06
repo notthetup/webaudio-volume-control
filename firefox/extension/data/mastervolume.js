@@ -1,10 +1,10 @@
 ///var a = new AudioContext(); osc = a.createOscillator(); osc.connect(a.destination); osc.start();
 
 if (typeof origAudioContext == 'undefined'){
-	console.log("Hijacking...");
+	// console.log("Hijacking...");
 	(function (){
 		var allAudioContexts = [];
-		window.origAudioContext = AudioContext;
+		window.origAudioContext = window.AudioContext;
 		window.AudioContext = function (){
 			var newAudioContextInstance = {};
 			var origACInstance = new origAudioContext();
@@ -32,14 +32,14 @@ if (typeof origAudioContext == 'undefined'){
 			newAudioContextInstance.gain = masterGain.gain;
 
 			allAudioContexts.push(newAudioContextInstance);
-			console.log("Running Hijacked Context", allAudioContexts);
+			//console.log("Running Hijacked Context", allAudioContexts);
 
 			return newAudioContextInstance;
 		}
 		document.addEventListener("mastervolume", function(event){
-			console.log("Adjusting master gain", event.detail, " of ", allAudioContexts.length);
+			//console.log("Adjusting master gain", event.detail, " of ", allAudioContexts.length);
 			allAudioContexts.forEach(function(thisContext){
-				thisContext.gain.value = event.detail.gainValue;
+				thisContext.gain.value = parseFloat(event.detail.gainValue);
 			})
 		});
 	})()
