@@ -9,7 +9,7 @@ var pageWorker;
 
 pageMod.PageMod({
   include: "*",
-  attachTo: ["existing", "top"],
+  attachTo: ["existing", "frame"],
   contentScriptWhen: "start",
   contentScriptFile: self.data.url("injector.js"),
   contentScriptOptions: {
