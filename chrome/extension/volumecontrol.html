@@ -1,0 +1,32 @@
+<html>
+<head>
+	<style type="text/css">
+		input[type="range"] {
+			position: absolute;
+			left: -45px;
+			top: 40%;
+			transform: rotate(270deg);
+		}
+		p {
+			position: absolute;
+			top: 80%;
+			font-size: 1.4em;
+			left: 5px;
+		}
+
+		body {
+			width : 25px;
+			height : 200px;
+		}
+	</style>
+	<script src="volumecontrol.js"> </script>
+</head>
+
+<body>
+	<input id="inputSlider" type='range' min=0, max=100, step=0.01, value=100 >
+	<p id="sliderLabel">100</p>
+</body>
+
+</html>
+
+

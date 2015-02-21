@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+
+  "name": "WebAudio Volume Control",
+  "description": "A basic add-on to control the volume of all audio coming from WebAudio",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon-19.png",
+    "default_popup": "volumecontrol.html"
+  },
+
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/"
+  ],
+  "web_accessible_resources": [
+     "mastervolume.js"
+   ],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*","https://*/*"],
+      "match_about_blank" : true,
+      "all_frames": true,
+      "run_at" : "document_start",
+      "js": ["injector.js"]
+    }
+  ]
+}
