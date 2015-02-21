@@ -4,7 +4,7 @@ window.onload = function (){
 	var inputslider = document.getElementById('inputSlider');
 	var sliderlabel = document.getElementById('sliderLabel');
 
-	if (typeof chrome !== "undefined"){
+	if (typeof chrome !== "undefined" && chrome.storage){
 		storage = chrome.storage.local;
 		storage.get("mastervolume",function(result){
 			if (result && result.mastervolume){
@@ -37,7 +37,7 @@ function updateVolume(volume){
 		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		  chrome.tabs.sendMessage(tabs[0].id, {mastervolume: volume});
 		});
-	}else if (typeof self !== "undefined"){
+	}else if (typeof self !== "undefined" && self.port){
 		self.port.emit("mastervolume",volume);
 	}
 }

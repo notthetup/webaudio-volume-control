@@ -44,8 +44,8 @@ var button = buttons.ToggleButton({
 });
 
 var panel = panels.Panel({
-  width: 25,
-  height: 180,
+  width: 50,
+  height: 250,
   contentURL: self.data.url("volumecontrol.html"),
   onHide: handleHide
 });
