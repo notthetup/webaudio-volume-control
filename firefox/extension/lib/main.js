@@ -15,20 +15,6 @@ function detachWorker(worker, workerArray) {
   }
 }
 
-// tabs.on('load', function(tab){
-//     console.log("load", tab.url);
-//     var worker = tab.attach({
-//       contentScriptFile: self.data.url("injector.js"),
-//       contentScriptOptions: {
-//         scripturl: self.data.url("mastervolume.js")
-//       },
-//     });
-//     workers.push(worker);
-//     worker.on('detach', function () {
-//      detachWorker(this, workers);
-//     });
-// });
-
 pageMod.PageMod({
   include: "*",
   attachTo: ["top", "frame"],
@@ -61,7 +47,6 @@ var panel = panels.Panel({
   width: 25,
   height: 180,
   contentURL: self.data.url("volumecontrol.html"),
-  contentScriptFile: self.data.url("volumecontrol.js"),
   onHide: handleHide
 });
 

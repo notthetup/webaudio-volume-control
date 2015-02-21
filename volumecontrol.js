@@ -1,9 +1,11 @@
 window.onload = function (){
+	console.log("controlling volume");
+	var storage;
 	var inputslider = document.getElementById('inputSlider');
 	var sliderlabel = document.getElementById('sliderLabel');
-	var storage = chrome.storage.local;
 
-	if (storage){
+	if (typeof chrome !== "undefined"){
+		storage = chrome.storage.local;
 		storage.get("mastervolume",function(result){
 			if (result && result.mastervolume){
 				console.log("old value found", result);
@@ -22,7 +24,7 @@ window.onload = function (){
 		sliderlabel.innerHTML = parseInt(inputslider.value);
 		var volume = parseFloat(inputslider.value)/100.0;
 
-		if(storage){
+		if(typeof chrome !== "undefined"){
 			storage.set({"mastervolume":parseFloat(inputslider.value)});
 		}
 
@@ -31,12 +33,11 @@ window.onload = function (){
 }
 
 function updateVolume(volume){
-	if (chrome){
+	if (typeof chrome !== "undefined"){
 		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		  chrome.tabs.sendMessage(tabs[0].id, {mastervolume: volume});
 		});
-	}else if (self){
+	}else if (typeof self !== "undefined"){
 		self.port.emit("mastervolume",volume);
 	}
-
 }
