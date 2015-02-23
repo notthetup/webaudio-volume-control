@@ -8,7 +8,7 @@ Extensions for Firefox and Chrome that adds a volume control slider in a dropdow
 
 ## Builds
 
-Packaged extensions are in the [build directory](/https://github.com/notthetup/webaudio-volume-control/tree/master/build)
+Packaged extensions are in the [build directory](https://github.com/notthetup/webaudio-volume-control/tree/master/build)
 
 ## How does this work??
 
