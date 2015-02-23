@@ -4,7 +4,7 @@ _Avoid damaging the ears of your audience when you demo your WebAudio project_
 
 ## Extensions for master Volume Control of WebAudio
 
-Extensions for Firefox and Chrome that adds a volume control slider in a dropdown from a toolbar button. The slider controls audio level (master gain) for all WebAudio based audio on a given page
+Extensions for Firefox and Chrome that adds a volume control slider in a dropdown from a toolbar button. The slider controls audio level (master gain) for all WebAudio based audio on a given page.
 
 ## Builds
 
