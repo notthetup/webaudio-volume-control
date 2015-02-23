@@ -18,6 +18,10 @@ The extensions inject JavaScript in every page which takes adds a `GainNode` bef
 
 Many times, especially when using HDMI projectors, local volume control on laptops get disabled (HDMI does the Audio I/O). So when demoing WebAudio based projects, the audio might be too loud, but there is no way to control it. With this extension you'll be able to control the audio level within the browser iteself.
 
+## Logo
+
+Using the epic [(un)official WebAudio Logo from logo.js](https://github.com/voodootikigod/logo.js/tree/master/webaudio)
+
 ## Issues
 
 Because of the totally hackish way this is implemented this might break in some edge case scenarios. Please file issues and we can try to fix it.
