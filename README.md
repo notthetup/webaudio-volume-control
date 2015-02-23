@@ -1,5 +1,4 @@
 # Webaudio Volume Control
------
 
 _Avoid damaging the ears of your audience when you demo your WebAudio project_
 
