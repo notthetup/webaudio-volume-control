@@ -47,6 +47,7 @@ var panel = panels.Panel({
   width: 50,
   height: 250,
   contentURL: self.data.url("volumecontrol.html"),
+  contentScriptFile: self.data.url("volumecontrol.js"),
   onHide: handleHide
 });
 

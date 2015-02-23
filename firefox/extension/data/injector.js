@@ -14,6 +14,7 @@ s.src = self.options.scripturl;
 s.onload = function() {
     this.parentNode.removeChild(this);
     self.port.on("mastervolume", function(payload){
+      console.log("received ", payload);
     	sendCustomEvent("mastervolume", "gainValue", payload)
     })
 };

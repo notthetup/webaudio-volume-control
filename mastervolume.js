@@ -36,6 +36,7 @@ if (typeof origAudioContext == 'undefined'){
 
 			return newAudioContextInstance;
 		}
+		window.webkitAudioContext = window.AudioContext;
 		document.addEventListener("mastervolume", function(event){
 			console.log("Adjusting master gain", event.detail, " of ", allAudioContexts.length);
 			allAudioContexts.forEach(function(thisContext){
