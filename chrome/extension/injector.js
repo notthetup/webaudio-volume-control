@@ -1,4 +1,4 @@
-console.log("injecting....")
+// console.log("injecting....")
 
 function sendCustomEvent(type, data, payload) {
   var greeting = {};

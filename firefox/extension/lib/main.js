@@ -65,10 +65,10 @@ function handleHide() {
 }
 
 panel.port.on("mastervolume", function(payload){
-  console.log("received mastervolume", payload, " sending to ", workers.length);
+  // console.log("received mastervolume", payload, " sending to ", workers.length);
   workers.forEach(function(thisWorker, index){
     if (thisWorker.tab.id === tabs.activeTab.id){
-      console.log("sending to",thisWorker.tab.url)
+      // console.log("sending to",thisWorker.tab.url)
       thisWorker.port.emit("mastervolume", payload);
     }
   });
