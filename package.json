@@ -1,0 +1,29 @@
+{
+  "name": "webaudio-volume-control",
+  "version": "1.0.0",
+  "description": "WebAudio Volume Control Extension",
+  "main": "mastervolume.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^3.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/notthetup/webaudio-volume-control.git"
+  },
+  "keywords": [
+    "webaudio",
+    "volume",
+    "control",
+    "extension"
+  ],
+  "author": "Chinmay <notthetup@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/notthetup/webaudio-volume-control/issues"
+  },
+  "homepage": "https://github.com/notthetup/webaudio-volume-control#readme"
+}
